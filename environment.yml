@@ -1,0 +1,23 @@
+name: physicsnemo
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - cuda-toolkit=12.1
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pip:
+      - Cython
+      - nvidia-physicsnemo
+      - nvidia-physicsnemo-sym --no-build-isolation
+      - "nvidia-physicsnemo[all]"
+      - quadpy
+      - orthopy
+      - ndim
+      - gdown

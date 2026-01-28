@@ -1,0 +1,53 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023 - 2024 NVIDIA CORPORATION & AFFILIATES.
+# SPDX-FileCopyrightText: All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+defaults:
+  - physicsnemo_default
+  - arch:
+      - fully_connected
+  - scheduler: tf_exponential_lr
+  - optimizer: adam
+  - loss: sum
+  - _self_
+
+save_filetypes: "vtk,npz"
+
+arch:
+  fully_connected:
+    layer_size: 256
+    nr_layers: 6
+
+scheduler:
+  decay_rate: 0.95
+  decay_steps: 2000
+
+optimizer:
+  lr: 0.001
+
+training:
+  rec_results_freq: 1000
+  max_steps: 30000
+
+batch_size:
+  IC: 500
+  interior: 2000
+  data: 500
+  parameter_regression: 32
+  data_fitting: 50
+  physics: 100
+
+# Custom parameters for inverse problem
+custom:
+  n_observations: 200     # Number of observation data points
+  noise_level: 0.01       # Noise level (std dev) added to observations (0 = no noise)
+  lambda_data: 100.0      # Weight for data fitting constraint
+  lambda_physics: 1.0     # Weight for physics (ODE) constraint
+  lambda_ic: 100.0        # Weight for initial condition constraint
+  
+  # Multi-case training parameters
+  n_training_cases: 100   # Number of different parameter combinations for training
+  n_time_points: 50       # Number of time points in each time series
+  n_test_cases: 10        # Number of test cases for multi-case evaluation
+  max_steps_per_case: 8000 # Training steps per case in multi-case test
+  

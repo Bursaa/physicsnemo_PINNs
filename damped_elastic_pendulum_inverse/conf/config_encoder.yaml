@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023 - 2024 NVIDIA CORPORATION & AFFILIATES.
+# SPDX-FileCopyrightText: All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+defaults:
+  - physicsnemo_default
+  - arch:
+      - fully_connected
+  - scheduler: tf_exponential_lr
+  - optimizer: adam
+  - loss: sum
+  - _self_
+
+save_filetypes: "vtk,npz"
+
+arch:
+  fully_connected:
+    layer_size: 256
+    nr_layers: 6
+
+scheduler:
+  decay_rate: 0.95
+  decay_steps: 3000
+
+optimizer:
+  lr: 0.001
+
+training:
+  rec_results_freq: 2000
+  max_steps: 30000
+
+batch_size:
+  IC: 256
+  interior: 2048
+  data: 1024
+
+# Custom parameters for encoder-based inverse problem
+custom:
+  # Data generation
+  n_training_cases: 200    # Number of different parameter combinations for training
+  n_test_cases: 50         # Number of test cases for evaluation
+  n_time_points: 100       # Number of time points per case
+  noise_level: 0.02        # Noise level (std dev) added to observations
+  
+  # Encoder architecture
+  embedding_dim: 64        # Dimension of encoder output embedding
+  encoder_batch_size: 32   # Batch size for encoder training
+  
+  # Interior points for physics constraint
+  n_interior_per_case: 50  # Interior points per case for ODE constraint
+  
+  # Loss weights
+  lambda_data: 100.0       # Weight for data fitting constraint
+  lambda_physics: 1.0      # Weight for physics (ODE) constraint
+  lambda_ic: 100.0         # Weight for initial condition constraint
