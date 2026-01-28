@@ -19,7 +19,7 @@ from physicsnemo.sym.domain.validator import PointwiseValidator
 from physicsnemo.sym.key import Key
 from physicsnemo.sym.node import Node
 
-from damped_elastic_pendulum import DampedElasticPendulum
+from damped_pendulum.damped_pendulum import DampedElasticPendulum
 
 
 @physicsnemo.sym.main(config_path="conf", config_name="config")
