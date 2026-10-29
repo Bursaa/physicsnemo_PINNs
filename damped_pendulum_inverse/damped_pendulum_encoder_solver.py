@@ -36,7 +36,7 @@ from physicsnemo.sym.key import Key
 from physicsnemo.sym.node import Node
 from physicsnemo.sym.models.arch import Arch
 
-from damped_elastic_pendulum_inverse import DampedPendulumInverse
+from damped_pendulum_inverse.damped_pendulum_inverse import DampedPendulumInverse
 
 
 class TimeSeriesEncoder(nn.Module):
